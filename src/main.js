@@ -1,50 +1,57 @@
-import { bangs } from "./bang";
-import "./global.css";
+import { bangs } from "./bang.js";
+
 
 function noSearchDefaultPageRender() {
-  const app = document.querySelector<HTMLDivElement>("#app")!;
-  app.innerHTML = `
+
+  fetch(window.location.href + '/config')
+    .then(response => response.json())
+    .then(config => {
+
+      const app = document.querySelector("#app");
+
+      app.innerHTML = `
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
       <div class="content-container">
-        <h1>Unduck</h1>
-        <p>DuckDuckGo's bang redirects are too slow. Add the following URL as a custom search engine to your browser. Enables <a href="https://duckduckgo.com/bang.html" target="_blank">all of DuckDuckGo's bangs.</a></p>
+        <h1>Unduck-custombangs</h1>
+        <p>This is a selfhosted version of t3dotgg/unduck</p>
         <div class="url-container"> 
           <input 
             type="text" 
             class="url-input"
-            value="https://unduck.link?q=%s"
+            value="${config.appUrl}/?q=%s"
             readonly 
           />
           <button class="copy-button">
-            <img src="/clipboard.svg" alt="Copy" />
+            <img src="https://www.svgrepo.com/show/527652/clipboard.svg" alt="Copy" />
           </button>
         </div>
       </div>
       <footer class="footer">
-        <a href="https://t3.chat" target="_blank">t3.chat</a>
-        •
-        <a href="https://x.com/theo" target="_blank">theo</a>
-        •
-        <a href="https://github.com/t3dotgg/unduck" target="_blank">github</a>
+   <a>by andreasmolnardev</a>
       </footer>
     </div>
   `;
 
-  const copyButton = app.querySelector<HTMLButtonElement>(".copy-button")!;
-  const copyIcon = copyButton.querySelector("img")!;
-  const urlInput = app.querySelector<HTMLInputElement>(".url-input")!;
+      localStorage.setItem('default-bang', config.defaultBang)
 
-  copyButton.addEventListener("click", async () => {
-    await navigator.clipboard.writeText(urlInput.value);
-    copyIcon.src = "/clipboard-check.svg";
 
-    setTimeout(() => {
-      copyIcon.src = "/clipboard.svg";
-    }, 2000);
-  });
+      const copyButton = app.querySelector(".copy-button");
+      const copyIcon = copyButton.querySelector("img");
+      const urlInput = app.querySelector(".url-input");
+
+      copyButton.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(urlInput.value);
+        copyIcon.src = "https://www.svgrepo.com/show/527646/clipboard-check.svg";
+
+        setTimeout(() => {
+          copyIcon.src = "https://www.svgrepo.com/show/527652/clipboard.svg";
+        }, 2000);
+      });
+    })
+    .catch(error => console.error('Error fetching config:', error));
 }
 
-const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "g";
+const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "ddg";
 const defaultBang = bangs.find((b) => b.t === LS_DEFAULT_BANG);
 
 function getBangredirectUrl() {

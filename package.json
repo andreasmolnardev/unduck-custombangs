@@ -2,14 +2,14 @@
   "name": "unduck",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "web": "node server.js",
+    "web-dev": "nodemon server.js"
   },
   "devDependencies": {
-    "typescript": "~5.7.2",
-    "vite": "^6.1.0"
+    "nodemon": "^3.1.9"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }
