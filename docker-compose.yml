@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  unduck-custombangs:
+    image: andreasmolnardev/unduck-custombangs:latest
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - PORT=${PORT} #The port the app will be running on
+      - APP_URL=${APP_URL} # optional; default app url
+      - DEFAULT_BANG=${DEFAULT_BANG} # default bang
+    volumes:
+      - /path/to/bang.js:/app/src/bang.js:ro #optional; enter the path to your custom bang.js on the left hand side
+    command: ["sh", "-c", "PORT=${PORT} APP_URL=${APP_URL} DEFAULT_BANG=${DEFAULT_BANG} node server.js"] #Starts the nodejs application

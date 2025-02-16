@@ -2,24 +2,6 @@
 
 export const bangs = [
   {
-    c: "My SearXNG instance",
-    d: "searxng.home",
-    r: 1234,
-    s: "SearXNG",
-    sc: "Searxng",
-    t: "sxng",
-    u: "https://searxng.home/search?q={{{s}}}",
-  },
-  {
-    c: "AI",
-    d: "www.t3.chat",
-    r: 0,
-    s: "T3 Chat",
-    sc: "AI",
-    t: "t3",
-    u: "https://www.t3.chat/new?q={{{s}}}",
-  },
-  {
     c: "Tech",
     d: "www.01net.com",
     r: 4,

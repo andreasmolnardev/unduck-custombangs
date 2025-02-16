@@ -3,10 +3,10 @@ const path = require('path');
 
 const app = express();
 
-const PORT = process.env.PORT || 4173;
-const APP_URL = process.env.APP_URL || `https://coder.dev-lab/proxy/4173`;
+const PORT = process.env.PORT;
+const APP_URL = process.env.APP_URL;
 const DEFAULT_BANG = process.env.DEFAULT_BANG || "ddg"
-const rootPrefix = "/proxy/4173";
+
 
 const publicPath = path.join(__dirname, 'index.html');
 
