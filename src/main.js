@@ -1,5 +1,5 @@
 import { bangs } from "../config/bang.js";
-import config from "../config/config.json" assert { type: 'json' };
+import config from "../config/config.json" with { type: 'json' };
 
 config.customBangs.forEach(customBang => {
   bangs.push({
@@ -35,7 +35,7 @@ function noSearchDefaultPageRender() {
         </div>
       </div>
       <footer class="footer">
-   <a>by andreasmolnardev</a>
+   <a href="https://github.com/andreasmolnardev">by andreasmolnardev</a>
       </footer>
     </div>
   `;

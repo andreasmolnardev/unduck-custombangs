@@ -10,6 +10,8 @@ See docker-compose.yml
 
 Don't forget to enable cahing in your reverse proxy for optimal performance 
 
+Also, some features (accessing the clipboard) require HTTPS
+
 ## The config.json file
 The config file is located at /app/config/config.json
 
