@@ -4,10 +4,6 @@ services:
   unduck-custombangs:
     image: andreasmolnardev/unduck-custombangs:latest
     ports:
-      - "${PORT}:${PORT}" #Enter the port the app will be running on here (twice)
-    environment:
-      - PORT=${PORT} #The port the app will be running on; should be the same as above
-      - APP_URL=${APP_URL} # optional; default app url
-      - DEFAULT_BANG=${DEFAULT_BANG} # default bang
+      - "YOUR_PORT_NUMBER:80" #Enter the port the app will be running on here
     volumes:
-      - /path/to/bang.js:/app/src/bang.js:ro #optional; enter the path to your custom bang.js on the left hand side
+      - /path/to/config.json:/app/config/config.json:ro #optional; enter the path to your custom config.json on the left hand side

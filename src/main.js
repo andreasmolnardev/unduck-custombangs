@@ -1,15 +1,23 @@
-import { bangs } from "./bang.js";
+import { bangs } from "../config/bang.js";
+import config from "../config/config.json" assert { type: 'json' };
 
+config.customBangs.forEach(customBang => {
+  bangs.push({
+    t: customBang.bangWithoutExclamationMark,
+    u: customBang.searchUrl
+  })
+})
 
 function noSearchDefaultPageRender() {
 
-  fetch(window.location.href + '/config')
-    .then(response => response.json())
-    .then(config => {
+  const app = document.querySelector("#app");
+  const location = window.location.href;
 
-      const app = document.querySelector("#app");
+  if (!location.endsWith("/")) {
+    location += "/"
+  }
 
-      app.innerHTML = `
+  app.innerHTML = `
     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
       <div class="content-container">
         <h1>Unduck-custombangs</h1>
@@ -18,11 +26,11 @@ function noSearchDefaultPageRender() {
           <input 
             type="text" 
             class="url-input"
-            value="${config.appUrl}/?q=%s"
+            value="${location}?q=%s"
             readonly 
           />
           <button class="copy-button">
-            <img src="https://www.svgrepo.com/show/527652/clipboard.svg" alt="Copy" />
+            <img src="./svgs/clipboard.svg" alt="Copy" />
           </button>
         </div>
       </div>
@@ -32,26 +40,26 @@ function noSearchDefaultPageRender() {
     </div>
   `;
 
-      localStorage.setItem('default-bang', config.defaultBang)
+  localStorage.setItem('default-bang', config.defaultBang)
 
 
-      const copyButton = app.querySelector(".copy-button");
-      const copyIcon = copyButton.querySelector("img");
-      const urlInput = app.querySelector(".url-input");
+  const copyButton = app.querySelector(".copy-button");
+  const copyIcon = copyButton.querySelector("img");
+  const urlInput = app.querySelector(".url-input");
 
-      copyButton.addEventListener("click", async () => {
-        await navigator.clipboard.writeText(urlInput.value);
-        copyIcon.src = "https://www.svgrepo.com/show/527646/clipboard-check.svg";
+  copyButton.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(urlInput.value);
+    copyIcon.src = "./svgs/clipboard-check.svg";
 
-        setTimeout(() => {
-          copyIcon.src = "https://www.svgrepo.com/show/527652/clipboard.svg";
-        }, 2000);
-      });
-    })
-    .catch(error => console.error('Error fetching config:', error));
+    setTimeout(() => {
+      copyIcon.src = "./svgs/clipboard.svg";
+    }, 2000);
+  });
 }
 
-const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? "ddg";
+
+const LS_DEFAULT_BANG = localStorage.getItem("default-bang") ?? config.defaultBang;
+
 const defaultBang = bangs.find((b) => b.t === LS_DEFAULT_BANG);
 
 function getBangredirectUrl() {

@@ -1,6 +1,6 @@
 // This file was (mostly) ripped from https://duckduckgo.com/bang.js
 
-export const bangs = [
+export let bangs = [
   {
     c: "Tech",
     d: "www.01net.com",

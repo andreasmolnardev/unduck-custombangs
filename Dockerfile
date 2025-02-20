@@ -1,13 +1,13 @@
-FROM node
+FROM nginx:alpine
 
+# Set the working directory
 WORKDIR /app
 
-COPY package*.json ./
+# Copy app files
+COPY . /app
 
-RUN npm install
+# Copy custom Nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY . .
-
-EXPOSE ${PORT}
-
-CMD ["sh", "-c", "PORT=${PORT} APP_URL=${APP_URL} DEFAULT_BANG=${DEFAULT_BANG} node server.js"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
