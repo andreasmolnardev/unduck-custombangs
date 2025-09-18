@@ -8,7 +8,7 @@ unduck-custombangs enables you to do exactly that.
 ## Self-host via Docker
 See docker-compose.yml
 
-Don't forget to enable cahing in your reverse proxy for optimal performance 
+Don't forget to enable caching in your reverse proxy for optimal performance 
 
 Also, some features (accessing the clipboard) require HTTPS
 
